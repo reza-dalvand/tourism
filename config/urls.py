@@ -3,7 +3,14 @@ from django.contrib import admin
 from django.urls import include, path
 
 from config.django import base
+from config.django.base import DEBUG
 
-urlpatterns = [path("admin/", admin.site.urls), path("rosetta/", include("rosetta.urls"))]
+urlpatterns = [
+    path("admin/", admin.site.urls),
+]
 
-urlpatterns += static(base.MEDIA_URL, document_root=base.MEDIA_ROOT)
+if DEBUG:
+    urlpatterns += [
+        path("rosetta/", include("rosetta.urls")),
+        path("api-auth/", include("rest_framework.urls")),
+    ] + static(base.MEDIA_URL, document_root=base.MEDIA_ROOT)

@@ -2,11 +2,15 @@ from pathlib import Path
 
 from django.utils.translation import gettext_lazy as _
 
+from config.env import env
+
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-DEBUG = True
+DEBUG = env("DEBUG")
 ALLOWED_HOSTS = []
 
+# all apps
+################################################################
 DJANGO_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -22,6 +26,8 @@ THIRD_PARTY_APPS = [
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS
 
+# middlewares
+################################################################
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -33,8 +39,14 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+
+# root url
+################################################################
 ROOT_URLCONF = "config.urls"
 
+
+# templates
+################################################################
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
@@ -53,6 +65,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
+
+# password validator
+################################################################
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
@@ -68,6 +83,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
+# language settings
+################################################################
 LANGUAGE_CODE = "en"
 
 TIME_ZONE = "UTC"
@@ -87,10 +105,15 @@ LOCALE_PATHS = [
     BASE_DIR / "locale/",
 ]
 
+
+# serve static and media files
+################################################################
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "static"
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
+# default auto fields
+################################################################
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

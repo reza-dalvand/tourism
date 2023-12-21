@@ -1,9 +1,10 @@
 import sentry_sdk
-from sentry_sdk.integrations import falcon
 
 from config.django.base import BASE_DIR, INSTALLED_APPS
 from config.env import env
 
+# database settings
+################################################################
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
@@ -11,6 +12,8 @@ DATABASES = {
     }
 }
 
+# install apps
+################################################################
 INSTALLED_APPS += ["rosetta"]
 
 # sentry config
@@ -25,5 +28,3 @@ sentry_sdk.init(
     # We recommend adjusting this value in production.
     profiles_sample_rate=1.0,
 )
-
-api = falcon.API()

@@ -1,6 +1,3 @@
-STORAGES = {
-    "default": {
-        "BACKEND": "storages.backends.s3.S3Storage",
-        "OPTIONS": {},
-    },
-}
+from split_settings.tools import include
+
+include("../settings/aws.py")

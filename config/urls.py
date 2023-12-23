@@ -7,6 +7,7 @@ from config.django.base import DEBUG
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("api/<str:version>/", include("apps.api.urls", namespace="api")),
 ]
 
 if DEBUG:

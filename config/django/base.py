@@ -6,7 +6,7 @@ from config.env import env
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-DEBUG = env("DEBUG")
+DEBUG = env("DEBUG", cast=bool, default=False)
 ALLOWED_HOSTS = []
 
 # all apps

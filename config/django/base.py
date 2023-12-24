@@ -7,7 +7,14 @@ from config.env import env
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 DEBUG = env("DEBUG", cast=bool, default=False)
-ALLOWED_HOSTS = []
+
+# which domain/host access to website (security)
+################################################################
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["*"])
+
+# which domains can send request to website
+################################################################
+ALLOWED_CORS_ORIGIN = env.list("ALLOWED_CORS_ORIGIN", default=[])
 
 # all apps
 ################################################################
@@ -22,6 +29,7 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     "rest_framework",
+    "corsheaders",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS
@@ -32,6 +40,7 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",  # new
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -39,11 +48,9 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-
 # root url
 ################################################################
 ROOT_URLCONF = "config.urls"
-
 
 # templates
 ################################################################
@@ -65,7 +72,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
-
 # password validator
 ################################################################
 AUTH_PASSWORD_VALIDATORS = [
@@ -83,7 +89,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # rest configuration
 ################################################################
 REST_FRAMEWORK = {
@@ -91,7 +96,6 @@ REST_FRAMEWORK = {
     "ALLOWED_VERSIONS": ["v1", "v2"],
     "DEFAULT_VERSION": "v1",
 }
-
 
 # language settings
 ################################################################
@@ -113,7 +117,6 @@ LANGUAGES = (
 LOCALE_PATHS = [
     BASE_DIR / "locale/",
 ]
-
 
 # serve static and media files
 ################################################################

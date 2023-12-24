@@ -14,7 +14,7 @@ ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["*"])
 
 # which domains can send request to website
 ################################################################
-ALLOWED_CORS_ORIGIN = env.list("ALLOWED_CORS_ORIGIN", default=[])
+CORS_ORIGIN_WHITELIST = env.list("CORS_ORIGIN_WHITELIST", default=[])
 
 # all apps
 ################################################################

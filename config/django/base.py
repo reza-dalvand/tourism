@@ -15,7 +15,6 @@ ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["*"])
 # which domains can send request to website
 ################################################################
 CORS_ORIGIN_WHITELIST = env.list("CORS_ORIGIN_WHITELIST", default=[])
-
 # all apps
 ################################################################
 DJANGO_APPS = [
@@ -46,6 +45,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "apps.core.middlewares.current_user.CurrentUserMiddleware",
 ]
 
 # root url
@@ -93,7 +93,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ################################################################
 REST_FRAMEWORK = {
     "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.URLPathVersioning",
-    "ALLOWED_VERSIONS": ["v1", "v2"],
+    "ALLOWED_VERSIONS": ["v1"],
     "DEFAULT_VERSION": "v1",
 }
 
@@ -126,6 +126,6 @@ STATIC_ROOT = BASE_DIR / "static"
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
-# default auto fields
+# default auto field
 ################################################################
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

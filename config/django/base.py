@@ -33,12 +33,16 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
 ]
 
+LOCAL_APPS = [
+    "apps.users",
+]
+
 THIRD_PARTY_APPS = [
     "rest_framework",
     "corsheaders",
 ]
 
-INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS
+INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
 
 # middlewares
 ################################################################
@@ -136,3 +140,7 @@ MEDIA_ROOT = BASE_DIR / "media"
 # default auto field
 ################################################################
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# config default user model
+################################################################
+AUTH_USER_MODEL = "users.User"

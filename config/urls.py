@@ -13,5 +13,6 @@ urlpatterns = [
 if DEBUG:
     urlpatterns += [
         path("rosetta/", include("rosetta.urls")),
+        path("__debug__/", include("debug_toolbar.urls")),
         path("api-auth/", include("rest_framework.urls")),
     ] + static(base.MEDIA_URL, document_root=base.MEDIA_ROOT)

@@ -1,8 +1,10 @@
+import logging.config
 from pathlib import Path
 
 from django.utils.translation import gettext_lazy as _
 
 from config.env import env
+from config.settings.logger import LOGGING
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -15,6 +17,11 @@ ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["*"])
 # which domains can send request to website
 ################################################################
 CORS_ORIGIN_WHITELIST = env.list("CORS_ORIGIN_WHITELIST", default=[])
+
+# logger configuration
+################################################################
+logging.config.dictConfig(LOGGING)
+
 # all apps
 ################################################################
 DJANGO_APPS = [

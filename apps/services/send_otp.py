@@ -21,6 +21,3 @@ def send_sms(receptor, message):
         logger.exception(e)
     except HTTPException as e:
         logger.exception(e)
-
-
-send_sms("09909412001", "test message")

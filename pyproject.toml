@@ -27,6 +27,8 @@ django-environ = "^0.11.2"
 sentry-sdk = {extras = ["django"], version = "^1.39.1"}
 django-rosetta = "^0.10.0"
 django-debug-toolbar = "^4.2.0"
+django-rest-swagger = "^2.2.0"
+drf-yasg = "^1.21.7"
 
 
 [build-system]

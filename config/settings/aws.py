@@ -1,8 +1,4 @@
-from pathlib import Path
-
 from config.env import env
-
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 if env("USE_ARVAN_BUCKET", cast=bool, default=False):
     """Config Arvan Cloud Storage"""

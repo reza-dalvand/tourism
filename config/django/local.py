@@ -23,6 +23,8 @@ DATABASES = {
 INSTALLED_APPS += [
     "rosetta",
     "debug_toolbar",
+    "rest_framework_swagger",
+    "drf_yasg",
 ]
 
 # middlewares

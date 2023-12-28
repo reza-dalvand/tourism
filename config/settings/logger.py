@@ -39,7 +39,7 @@ LOGGING = {
             "formatter": "verbose",
         },
         "file": {
-            "level": "WARNING",
+            "level": "INFO",
             "class": "logging.handlers.RotatingFileHandler",
             "filename": os.path.join(LOGGING_DIR, "log_file.log"),
             "formatter": "verbose",

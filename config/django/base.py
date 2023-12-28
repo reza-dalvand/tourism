@@ -108,11 +108,11 @@ REST_FRAMEWORK = {
     "DEFAULT_VERSION": "v1",
 }
 
-# language settings
+# language and time configurations
 ################################################################
 LANGUAGE_CODE = "en"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Asia/Tehran"
 
 USE_I18N = True
 

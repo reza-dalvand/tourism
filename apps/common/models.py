@@ -4,6 +4,8 @@ from apps.utils.fields.current_user import CurrentUserField
 
 
 class BaseModel(models.Model):
+    """A base model for every model."""
+
     owner = CurrentUserField(
         related_name="%(class)s_owner",
         on_delete=models.SET_NULL,

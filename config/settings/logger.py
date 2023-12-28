@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 
-# todo: import base dir instead make again path in below line
+# FIXME: import base dir instead make again path in below line
 LOGGING_DIR = Path(__file__).resolve().parent.parent.parent
 if not os.path.exists(LOGGING_DIR):
     os.makedirs(LOGGING_DIR)

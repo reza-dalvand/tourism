@@ -1,10 +1,5 @@
-from split_settings.tools import include
-
 from config.env import env
-
-# aws configuration
-################################################################
-include("../settings/aws.py")
+from config.settings import aws  # noqa
 
 # database configuration
 ################################################################

@@ -107,6 +107,9 @@ from config.settings import jwt  # noqa
 # rest configuration
 ################################################################
 REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",
+    ],
     "DEFAULT_AUTHENTICATION_CLASSES": ("rest_framework_simplejwt.authentication.JWTAuthentication",),
     # To prevent send many requests to server (secure operation)
     # with focus on send request by user for update last login in database
@@ -162,3 +165,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # config default user model
 ################################################################
 AUTH_USER_MODEL = "users.User"
+
+AUTHENTICATION_BACKENDS = [
+    "apps.users.backends.PhoneBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]

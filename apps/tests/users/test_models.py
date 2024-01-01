@@ -1,3 +1,4 @@
+import pytest
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 
@@ -44,3 +45,10 @@ class UsersManagersTests(TestCase):
             User.objects.create_superuser(
                 phone="09121234567", email="test@test.com", password="test", is_superuser=False
             )
+
+
+# class TestRegister:
+#
+#     def test_register_user(self, client):
+#         request = client.post('/register')
+#         print(request)

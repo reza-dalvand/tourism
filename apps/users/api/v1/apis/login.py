@@ -9,6 +9,18 @@ from apps.users.serializers import LoginSerializer
 
 
 class LoginApi(APIView):
+    """
+    handel authorization with phone number and password
+
+    Parameters:
+        - phone: string
+        - password: string
+
+    Returns:
+        - refresh token: String
+        - access token: String
+    """
+
     permission_classes = (AllowAny,)
 
     def post(self, request, *args, **kwargs):

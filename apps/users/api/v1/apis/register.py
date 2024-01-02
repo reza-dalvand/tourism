@@ -4,6 +4,7 @@ from rest_framework.permissions import AllowAny
 from apps.users.serializers import RegisterSerializer
 
 
+# If you need to customize register use this, else use TokenObtainPairView, TokenRefreshView
 class RegisterApi(generics.CreateAPIView):
     """
     handel registration with phone number and password

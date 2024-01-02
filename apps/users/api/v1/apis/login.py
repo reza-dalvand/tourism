@@ -8,6 +8,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from apps.users.serializers import LoginSerializer
 
 
+# If you need to customize login use this, else use TokenObtainPairView, TokenRefreshView
 class LoginApi(APIView):
     """
     handel authorization with phone number and password
@@ -22,6 +23,7 @@ class LoginApi(APIView):
     """
 
     permission_classes = (AllowAny,)
+    serializer_class = LoginSerializer
 
     def post(self, request, *args, **kwargs):
         serializer = LoginSerializer(data=request.data)

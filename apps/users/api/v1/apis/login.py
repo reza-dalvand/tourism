@@ -8,13 +8,13 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from apps.users.serializers import LoginSerializer
 
 
-# If you need to customize login use this, else use TokenObtainPairView, TokenRefreshView
+# Customize Login
 class LoginApi(APIView):
     """
-    handel authorization with phone number and password
+    handel authorization with email and password
 
     Parameters:
-        - phone: string
+        - email: string
         - password: string
 
     Returns:
@@ -28,10 +28,10 @@ class LoginApi(APIView):
     def post(self, request, *args, **kwargs):
         serializer = LoginSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
-            phone_number = serializer.validated_data["phone"]
+            email = serializer.validated_data["email"]
             password = serializer.validated_data["password"]
             # Walrus Technic
-            if user := authenticate(request=request, phone=phone_number, password=password):
+            if user := authenticate(request=request, email=email, password=password):
                 login(request, user)
                 refresh = RefreshToken.for_user(user)
                 tokens = {"refresh_token": str(refresh), "access_token": str(refresh.access_token)}

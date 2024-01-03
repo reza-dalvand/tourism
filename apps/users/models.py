@@ -20,7 +20,8 @@ class User(AbstractUser):
         validators=[RegexValidator(regex=PHONE_REGEX, message=VALID_PHONE_NUMBER, code="Invalid Registration Number")],
     )
     email = models.EmailField(_("email address"), unique=True)
-    is_verified = models.BooleanField(_("is verified"), default=False)
+    email_is_verified = models.BooleanField(_("is verified"), default=False)
+    phone_is_verified = models.BooleanField(_("is verified"), default=False)
     avatar = models.FileField(
         _("avatar"),
         upload_to="avatars/%y/%m/%d",

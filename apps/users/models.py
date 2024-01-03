@@ -15,6 +15,8 @@ class User(AbstractUser):
         _("phone number"),
         max_length=11,
         unique=True,
+        null=True,
+        blank=True,
         validators=[RegexValidator(regex=PHONE_REGEX, message=VALID_PHONE_NUMBER, code="Invalid Registration Number")],
     )
     email = models.EmailField(_("email address"), unique=True)
@@ -30,9 +32,9 @@ class User(AbstractUser):
 
     address = models.TextField(null=True, blank=True)
 
-    USERNAME_FIELD = "phone"
+    USERNAME_FIELD = "email"
 
-    REQUIRED_FIELDS = ["email"]
+    REQUIRED_FIELDS = ["phone"]
 
     objects = CustomUserManager()
 

@@ -102,7 +102,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # JWT configuration
-from config.settings import jwt  # noqa
+from config.settings.jwt import SIMPLE_JWT  # noqa
 
 # rest configuration
 ################################################################

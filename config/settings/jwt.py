@@ -1,12 +1,13 @@
 from datetime import timedelta
 
-# JWT configuration
+# JWT Configuration
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=180),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=50),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=10),
+    # Set a new refresh token when access token is changed
     "ROTATE_REFRESH_TOKENS": True,
     "BLACKLIST_AFTER_ROTATION": True,
-    # to prevent database security issues set limit
+    # To prevent database security issues set limit
     # for request by users, now update last login can be true
     "UPDATE_LAST_LOGIN": True,
     "ALGORITHM": "HS256",
@@ -25,8 +26,8 @@ SIMPLE_JWT = {
     "TOKEN_USER_CLASS": "rest_framework_simplejwt.models.TokenUser",
     "JTI_CLAIM": "jti",
     # when user use my application this options
-    # increasing specify expire time refresh and access token in every use
+    # increasing refresh and access token expire time in every use
     "SLIDING_TOKEN_REFRESH_EXP_CLAIM": "refresh_exp",
     "SLIDING_TOKEN_LIFETIME": timedelta(minutes=5),
-    "SLIDING_TOKEN_REFRESH_LIFETIME": timedelta(days=1),
+    "SLIDING_TOKEN_REFRESH_LIFETIME": timedelta(minutes=1),
 }

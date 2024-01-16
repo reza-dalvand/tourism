@@ -16,13 +16,11 @@ class User(AbstractUser):
         unique=True,
         null=True,
         blank=True,
-        validators=[
-            RegexValidator(regex=PHONE_REGEX, message="Enter a valid phone number", code="Invalid Registration Number")
-        ],
+        validators=[RegexValidator(regex=PHONE_REGEX, message="Enter a valid phone number", code="Invalid Number")],
     )
-    email = models.EmailField(_("email address"), unique=True)
+    email = models.EmailField(_("email address"), null=True, blank=True)
     email_is_verified = models.BooleanField(_("is verified"), default=False)
-    phone_is_verified = models.BooleanField(_("is verified"), default=False)
+    is_active = models.BooleanField(_("is active"), default=False)
     avatar = models.FileField(
         _("avatar"),
         upload_to="avatars/%y/%m/%d",
@@ -34,9 +32,9 @@ class User(AbstractUser):
 
     address = models.TextField(null=True, blank=True)
 
-    USERNAME_FIELD = "email"
+    USERNAME_FIELD = "phone"
 
-    REQUIRED_FIELDS = ["phone"]
+    REQUIRED_FIELDS = ["email"]
 
     objects = CustomUserManager()
 
@@ -45,4 +43,4 @@ class User(AbstractUser):
         verbose_name_plural = _("users")
 
     def __str__(self):
-        return self.email
+        return self.phone

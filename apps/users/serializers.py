@@ -5,26 +5,22 @@ from apps.users.models import User
 
 
 class RegisterSerializer(serializers.ModelSerializer):
-    password2 = serializers.CharField(write_only=True)
-
     class Meta:
         model = User
-        fields = ("phone", "email", "password", "password2")
-        extra_kwargs = {"password": {"write_only": True}}
+        fields = ("phone",)
 
-    def validate(self, validated_data):
-        password = validated_data.get("password")
-        password2 = validated_data.get("password2")
-        if password != password2:
-            raise serializers.ValidationError({"error": _("passwords not match")})
-        return validated_data
+    # def validate(self, validated_data):
+    #     password = validated_data.get("password")
+    #     password2 = validated_data.get("password2")
+    #     if password != password2:
+    #         raise serializers.ValidationError({"error": _("passwords not match")})
+    #     return validated_data
 
-    def create(self, validate_data):
-        user = User.objects.create(phone=validate_data["phone"], email=validate_data["email"])
-        user.set_password(validate_data["password"])
-
-        user.save()
-        return user
+    # def create(self, validate_data):
+    #     user = User.objects.create(phone=validate_data["phone"], email=validate_data["email"])
+    #     user.set_password(validate_data["password"])
+    #     user.save()
+    #     return user
 
 
 class LoginSerializer(serializers.Serializer):

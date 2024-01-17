@@ -3,7 +3,7 @@ from django.core.validators import FileExtensionValidator, RegexValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from apps.common.regex_patterns import PHONE_REGEX
+from apps.common.regex_patterns import PHONE_PATTERN
 
 from .managers import CustomUserManager
 
@@ -16,7 +16,7 @@ class User(AbstractUser):
         unique=True,
         null=True,
         blank=True,
-        validators=[RegexValidator(regex=PHONE_REGEX, message="Enter a valid phone number", code="Invalid Number")],
+        validators=[RegexValidator(regex=PHONE_PATTERN, message="Enter a valid phone number", code="Invalid Number")],
     )
     email = models.EmailField(_("email address"), null=True, blank=True)
     email_is_verified = models.BooleanField(_("is verified"), default=False)

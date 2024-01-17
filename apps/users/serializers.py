@@ -1,7 +1,14 @@
-from django.utils.translation import gettext_lazy as _
+import logging
+
+from django.core.validators import RegexValidator
 from rest_framework import serializers
 
+from apps.common.regex_patterns import PHONE_PATTERN
+from apps.services.send_otp import send_sms
 from apps.users.models import User
+from apps.utils.generate_otp import generate_otp_code
+
+logger = logging.getLogger("main")
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -9,18 +16,24 @@ class RegisterSerializer(serializers.ModelSerializer):
         model = User
         fields = ("phone",)
 
-    # def validate(self, validated_data):
-    #     password = validated_data.get("password")
-    #     password2 = validated_data.get("password2")
-    #     if password != password2:
-    #         raise serializers.ValidationError({"error": _("passwords not match")})
-    #     return validated_data
+    def create(self, validate_data):
+        user = User.objects.create(phone=validate_data["phone"])
+        otp_code = generate_otp_code()
+        try:
+            user.otp = otp_code
+            user.save()
+            send_sms(user, otp_code)
+        except Exception as e:
+            logger.exception(e)
+        return user
 
-    # def create(self, validate_data):
-    #     user = User.objects.create(phone=validate_data["phone"], email=validate_data["email"])
-    #     user.set_password(validate_data["password"])
-    #     user.save()
-    #     return user
+
+class VerifyRegistrationSerializer(serializers.Serializer):
+    phone = serializers.CharField(
+        max_length=11,
+        validators=[RegexValidator(regex=PHONE_PATTERN, message="Enter a valid phone number", code="Invalid Number")],
+    )
+    code = serializers.IntegerField()
 
 
 class LoginSerializer(serializers.Serializer):

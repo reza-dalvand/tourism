@@ -1,1 +1,1 @@
-PHONE_REGEX = "^(\+98|0)?9\d{9}$"
+PHONE_PATTERN = r"^(\+98|0)?9\d{9}$"

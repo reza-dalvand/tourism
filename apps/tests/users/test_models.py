@@ -6,8 +6,8 @@ from django.test import TestCase
 class UsersManagersTests(TestCase):
     def test_create_user(self):
         User = get_user_model()
-        user = User.objects.create_user(phone="09121234567", email="test@test.com", password="test")
-        self.assertEqual(user.phone, "09121234567")
+        user = User.objects.create_user(mobile="09121234567", email="test@test.com", password="test")
+        self.assertEqual(user.mobile, "09121234567")
         self.assertEqual(user.email, "test@test.com")
         self.assertTrue(user.is_active)
         self.assertFalse(user.is_staff)
@@ -21,16 +21,16 @@ class UsersManagersTests(TestCase):
         with self.assertRaises(TypeError):
             User.objects.create_user()
         with self.assertRaises(TypeError):
-            User.objects.create_user(phone="")
+            User.objects.create_user(mobile="")
         with self.assertRaises(TypeError):
             User.objects.create_user(email="")
         with self.assertRaises(ValueError):
-            User.objects.create_user(phone="", email="", password="test")
+            User.objects.create_user(mobile="", email="", password="test")
 
     def test_create_superuser(self):
         User = get_user_model()
-        admin_user = User.objects.create_superuser(phone="09121234567", email="test@test.com", password="test")
-        self.assertEqual(admin_user.phone, "09121234567")
+        admin_user = User.objects.create_superuser(mobile="09121234567", email="test@test.com", password="test")
+        self.assertEqual(admin_user.mobile, "09121234567")
         self.assertEqual(admin_user.email, "test@test.com")
         self.assertTrue(admin_user.is_active)
         self.assertTrue(admin_user.is_staff)
@@ -43,7 +43,7 @@ class UsersManagersTests(TestCase):
             pass
         with self.assertRaises(ValueError):
             User.objects.create_superuser(
-                phone="09121234567", email="test@test.com", password="test", is_superuser=False
+                mobile="09121234567", email="test@test.com", password="test", is_superuser=False
             )
 
 

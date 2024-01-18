@@ -5,24 +5,24 @@ from django.db.models import Q
 User = get_user_model()
 
 
-class PhoneBackend(ModelBackend):
+class MobileBackend(ModelBackend):
     """Override default approach authentication."""
 
-    def authenticate(self, request, email=None, phone=None, password=None, **kwargs):
+    def authenticate(self, request, email=None, mobile=None, password=None, **kwargs):
         """
         Change default backend authentication.
 
         Args:
             request (request): Request object
             email (text): User email input
-            phone (text): User phone number input
+            mobile (text): User mobile number input
             password (text): User input password
 
         Returns:
             User instance
         """
         try:
-            user = User.objects.get(Q(email__iexact=phone) | Q(phone__iexact=phone))
+            user = User.objects.get(Q(email__iexact=email) | Q(mobile__iexact=mobile))
         except User.DoesNotExist:
             return None
 

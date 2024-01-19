@@ -2,17 +2,21 @@ import logging
 
 from kavenegar import *
 
+from apps.utils.generate_otp import generate_otp_code
 from config.env import env
 
 logger = logging.getLogger("main")
 
 
-def send_sms(receptor, otp_code):
+def send_and_save_otp_code(receptor):
+    otp_code = generate_otp_code()
+    receptor.otp = otp_code
+    receptor.save()
     try:
         api = KavenegarAPI(env("API_KEY"))
         params = {
             "sender": "",  # optional
-            "receptor": receptor,  # multiple mobile number, split by comma
+            "receptor": receptor.mobile,  # multiple mobile number, split by comma
             "message": f"your code: {otp_code}",
         }
         response = api.verify_lookup(params)

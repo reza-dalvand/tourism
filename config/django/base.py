@@ -116,11 +116,13 @@ REST_FRAMEWORK = {
     "DEFAULT_THROTTLE_CLASSES": [
         "rest_framework.throttling.AnonRateThrottle",
         "rest_framework.throttling.UserRateThrottle",
+        "rest_framework.throttling.ScopedRateThrottle",
     ],
     # for each view
     "DEFAULT_THROTTLE_RATES": {
-        "anon": "50/min",
-        "user": "100/min",
+        "anon": "10/min",
+        "user": "30/min",
+        "authentication": "3/hour",
     },
     "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
     "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.URLPathVersioning",
@@ -166,6 +168,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = "users.User"
 
 AUTHENTICATION_BACKENDS = [
-    "apps.users.backends.MobileBackend",
     "django.contrib.auth.backends.ModelBackend",
 ]

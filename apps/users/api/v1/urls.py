@@ -1,8 +1,8 @@
 from django.urls import path
 
-from apps.users.api.v1.apis.register import RegisterApi, VerifyRegistrationApi
+from .apis.authentication import LoginOrRegisterApi, VerifyOtpApi
 
 urlpatterns = [
-    path("register/", RegisterApi.as_view(), name="register"),
-    path("register/verify/", VerifyRegistrationApi.as_view(), name="verify-register"),
+    path("auth/", LoginOrRegisterApi.as_view(), name="register"),
+    path("auth/verify/", VerifyOtpApi.as_view(), name="verify-register"),
 ]

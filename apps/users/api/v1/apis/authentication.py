@@ -49,6 +49,20 @@ class RegisterApi(generics.CreateAPIView):
         return Response("The otp code has not expired", status=status.HTTP_400_BAD_REQUEST)
 
 
+class LoginOrRegisterApi(APIView):
+    permission_classes = (AllowAny,)
+    throttle_scope = "authentication"
+
+    def post(self, request, *args, **kwargs):
+        serializer = LoginOrRegisterSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        mobile = serializer.validated_data.get("mobile")
+        user, created = User.objects.get_or_create(mobile=mobile)
+        if user.is_active:
+            return LoginApi.as_view()(request._request, user=user)
+        return RegisterApi.as_view()(request._request, user=user)
+
+
 class VerifyOtpApi(APIView):
     """
     handel verify registration with mobile number and otp code
@@ -74,22 +88,8 @@ class VerifyOtpApi(APIView):
             login(request, user)
             refresh = RefreshToken.for_user(user)
             tokens = {
-                "refresh": str(refresh),
+                "refresh_token": str(refresh),
                 "access_token": str(refresh.access_token),
             }
             return Response(data=tokens, status=status.HTTP_200_OK)
         return Response(data=_("Code is not correct"), status=status.HTTP_400_BAD_REQUEST)
-
-
-class LoginOrRegisterApi(APIView):
-    permission_classes = (AllowAny,)
-    throttle_scope = "authentication"
-
-    def post(self, request, *args, **kwargs):
-        serializer = LoginOrRegisterSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        mobile = serializer.validated_data.get("mobile")
-        user, created = User.objects.get_or_create(mobile=mobile)
-        if user.is_active:
-            return LoginApi.as_view()(request._request, user=user)
-        return RegisterApi.as_view()(request._request, user=user)

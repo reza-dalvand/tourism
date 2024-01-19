@@ -4,8 +4,8 @@ from rest_framework.views import APIView
 from apps.users.models import User
 from apps.users.serializers import LoginOrRegisterSerializer
 
-from .login import LoginApi
-from .register import RegisterApi
+from .auth_apis.login import LoginApi
+from .auth_apis.register import RegisterApi
 
 
 class LoginOrRegisterApi(APIView):

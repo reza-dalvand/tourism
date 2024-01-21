@@ -15,7 +15,7 @@ def save_and_return_otp(user):
     return otp_code
 
 
-def send_and_save_otp_code(receptor):
+def send_otp_code(receptor):
     try:
         otp_code = save_and_return_otp(receptor)
         api = KavenegarAPI(env("API_KEY"))

@@ -8,11 +8,16 @@ from config.env import env
 logger = logging.getLogger("main")
 
 
-def send_and_save_otp_code(receptor):
+def save_and_return_otp(user):
     otp_code = generate_otp_code()
-    receptor.otp = otp_code
-    receptor.save()
+    user.otp = otp_code
+    user.save()
+    return otp_code
+
+
+def send_and_save_otp_code(receptor):
     try:
+        otp_code = save_and_return_otp(receptor)
         api = KavenegarAPI(env("API_KEY"))
         params = {
             "sender": "",  # optional

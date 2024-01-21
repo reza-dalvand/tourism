@@ -28,12 +28,11 @@ class VerifyOtpApi(APIView):
         serializer.is_valid(raise_exception=True)
         mobile = serializer.data.get("mobile")
         code = serializer.data.get("code")
-        user = get_object_or_404(User, mobile=mobile)
-        if check_expire_otp(user) and user.otp == code:
+        user = User.objects.using("users").get(mobile=mobile)
+        if not check_expire_otp(user) and user.otp == code:
             user.is_active = True
             user.otp = None
-            # Preventing otp_create_time field from being updated
-            user.save(update_fields=["otp", "is_active"])
+            user.save(update_fields=["is_active", "otp"])
             login(request, user)
             refresh = RefreshToken.for_user(user)
             tokens = {
@@ -41,4 +40,4 @@ class VerifyOtpApi(APIView):
                 "access_token": str(refresh.access_token),
             }
             return Response(data=tokens, status=status.HTTP_200_OK)
-        return Response(data=_("Code is not correct"), status=status.HTTP_400_BAD_REQUEST)
+        return Response(data=_("Code is expired or incorrect"), status=status.HTTP_400_BAD_REQUEST)

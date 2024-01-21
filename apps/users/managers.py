@@ -1,6 +1,8 @@
 from django.contrib.auth.base_user import BaseUserManager
 from django.utils.translation import gettext_lazy as _
 
+DEFAULT_USER_DB = "users"
+
 
 class CustomUserManager(BaseUserManager):
     """
@@ -13,7 +15,7 @@ class CustomUserManager(BaseUserManager):
             raise ValueError("The mobile field must be set")
         user = self.model(mobile=mobile, **extra_fields)
         user.set_unusable_password()
-        user.save(using=self._db)
+        user.save(using=DEFAULT_USER_DB)
         return user
 
     def create_superuser(self, email, password, mobile, **extra_fields):
@@ -30,5 +32,5 @@ class CustomUserManager(BaseUserManager):
             raise ValueError(_("Superuser must have is_superuser=True."))
         user = self.model(mobile=mobile, email=email, password=password, **extra_fields)
         user.set_password(password)
-        user.save()
+        user.save(using=DEFAULT_USER_DB)
         return user

@@ -13,9 +13,9 @@ class AuthRouter:
         return None
 
     def allow_migrate(self, db, app_label, model_name=None, **hints):
-        if app_label == "users" and db == "users_db":
+        if app_label == "users":
             return db == "user_db"
 
-    # Use the default way for relation between instances
+    # Use the default way for relation among instances
     # def allow_relation(self, obj1, obj2, **hints):
     #      pass

@@ -11,5 +11,5 @@ def check_expire_otp(user):
     now = datetime.now()
     expire_time = user.otp_create_time + timedelta(seconds=125)
     if now > expire_time:
-        return False
-    return True
+        return True
+    return False

@@ -1,7 +1,6 @@
 import sentry_sdk
 
-from config.django.base import BASE_DIR, INSTALLED_APPS, MIDDLEWARE
-from config.env import env
+from config.django.base import INSTALLED_APPS, MIDDLEWARE
 
 # django debug toolbar
 ################################################################
@@ -11,12 +10,10 @@ INTERNAL_IPS = [
 
 # database settings
 ################################################################
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
+from .db_config import CONFIG_DATABASES  # noqa
+
+DATABASES = CONFIG_DATABASES
+DATABASE_ROUTER = ["config.db_routers.auth_routers"]
 
 # install apps
 ################################################################
@@ -33,8 +30,9 @@ MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware"]
 
 # sentry config
 ################################################################
-sentry_sdk.init(
-    dsn=env("DSN"),
-    traces_sample_rate=1.0,
-    profiles_sample_rate=1.0,
-)
+# todo: active sentry
+# sentry_sdk.init(
+#     dsn=env("DSN"),
+#     traces_sample_rate=1.0,
+#     profiles_sample_rate=1.0,
+# )

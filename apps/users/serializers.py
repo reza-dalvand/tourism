@@ -10,6 +10,8 @@ mobile_number_field = serializers.CharField(
 )
 
 
+# I don't use model serializer to prevent checking unique validation
+# for users already created but have not activating.
 class LoginOrRegisterSerializer(serializers.Serializer):
     mobile = mobile_number_field
 
@@ -17,3 +19,7 @@ class LoginOrRegisterSerializer(serializers.Serializer):
 class VerifyOtpSerializer(serializers.Serializer):
     mobile = mobile_number_field
     code = serializers.IntegerField()
+
+
+class CheckEmailSerializer(serializers.Serializer):
+    email = serializers.EmailField()

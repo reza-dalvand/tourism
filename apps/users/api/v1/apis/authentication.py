@@ -17,7 +17,7 @@ class LoginOrRegisterApi(APIView):
         serializer = LoginOrRegisterSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         mobile = serializer.validated_data.get("mobile")
-        user, created = User.objects.using("users").get_or_create(mobile=mobile)
+        user, created = User.objects.using("users").get(mobile=mobile)
         if created or check_expire_otp(user):
             send_and_save_otp_code(user)
         else:

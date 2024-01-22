@@ -1,5 +1,4 @@
 from django.contrib.auth import login
-from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext_lazy as _
 from rest_framework import status
 from rest_framework.permissions import AllowAny
@@ -17,8 +16,10 @@ class VerifyOtpApi(APIView):
     handel verify registration with mobile number and otp code
 
     Parameters:
-        - mobile: String
         - code: Integer
+
+    Returns:
+        dict: {refresh_token: string, access_token: string}
     """
 
     permission_classes = (AllowAny,)
@@ -26,7 +27,7 @@ class VerifyOtpApi(APIView):
     def post(self, request, **kwargs):
         serializer = VerifyOtpSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        mobile = serializer.data.get("mobile")
+        mobile = request.session.get("mobile")
         code = serializer.data.get("code")
         user = User.objects.using("users").get(mobile=mobile)
         if not check_expire_otp(user) and user.otp == code:

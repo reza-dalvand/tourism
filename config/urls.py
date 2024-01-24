@@ -4,7 +4,6 @@ from django.urls import include, path
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from apps.users.admin import admin_users
 from apps.users.views import TestView
@@ -27,9 +26,6 @@ urlpatterns = [
     path("users/admin/", admin_users.urls),
     path("test/", TestView.as_view()),
     path("api/<str:version>/", include("apps.api.urls", namespace="api")),
-    # todo: handel address for get token from hear or use api LoginOrRegister in user app
-    path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
-    path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
 ]
 
 if DEBUG:

@@ -29,7 +29,7 @@ class VerifyOtpApi(APIView):
         serializer.is_valid(raise_exception=True)
         mobile = request.session.get("mobile")
         code = serializer.data.get("code")
-        user = User.objects.using("users").get(mobile=mobile)
+        user = User.objects.using("users_db").get(mobile=mobile)
         if not check_expire_otp(user) and user.otp == code:
             user.is_active = True
             user.otp = None

@@ -13,9 +13,9 @@ INTERNAL_IPS = [
 from .db_config import CONFIG_DATABASES  # noqa
 
 DATABASES = CONFIG_DATABASES
-DATABASE_ROUTER = ["config.db_routers.auth_routers"]
+DATABASE_ROUTERS = ["config.db_routers.auth_router.AuthRouter"]
 
-# install apps
+# installed apps
 ################################################################
 INSTALLED_APPS += [
     "rosetta",

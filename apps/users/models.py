@@ -18,7 +18,7 @@ class User(AbstractUser):
         blank=True,
         validators=[RegexValidator(regex=MOBILE_PATTERN, message="Enter a valid mobile number", code="Invalid Number")],
     )
-    email = models.EmailField(_("email address"), null=True, blank=True)
+    email = models.EmailField(_("email address"), unique=True)
     email_is_verified = models.BooleanField(_("is verified"), default=False)
     is_active = models.BooleanField(_("is active"), default=False)
     avatar = models.FileField(
@@ -38,6 +38,7 @@ class User(AbstractUser):
     REQUIRED_FIELDS = ["email"]
 
     objects = CustomUserManager()
+    backend = "apps.users.backend.MobileBackend"
 
     class Meta:
         verbose_name = _("user")

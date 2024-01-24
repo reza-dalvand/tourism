@@ -1,3 +1,5 @@
 Django~=5.0
 kavenegar~=1.1.2
 djangorestframework~=3.14.0
+pytest~=7.4.3
+environ

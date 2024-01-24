@@ -1,4 +1,4 @@
-from config.env import env
+from config.django.env import env
 
 if env("USE_ARVAN_BUCKET", cast=bool, default=False):
     """Config Arvan Cloud Storage"""

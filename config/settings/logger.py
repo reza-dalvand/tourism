@@ -1,10 +1,6 @@
 import os
-from pathlib import Path
 
-# FIXME: import base dir instead make again path in below line
-LOGGING_DIR = Path(__file__).resolve().parent.parent.parent
-if not os.path.exists(LOGGING_DIR):
-    os.makedirs(LOGGING_DIR)
+from config.django.env import BASE_DIR
 
 # config format of handlers
 ########################################################################
@@ -41,7 +37,7 @@ LOGGING = {
         "file": {
             "level": "INFO",
             "class": "logging.handlers.RotatingFileHandler",
-            "filename": os.path.join(LOGGING_DIR, "log_file.log"),
+            "filename": os.path.join(BASE_DIR, "log_file.log"),
             "formatter": "verbose",
             "maxBytes": MAXIMUM_FILE_LOGS,
             "backupCount": BACKUP_COUNT,

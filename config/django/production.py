@@ -1,4 +1,4 @@
-from config.env import env
+from config.django.env import env
 from config.settings import aws  # noqa
 
 # database configuration

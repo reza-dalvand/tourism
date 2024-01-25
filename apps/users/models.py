@@ -28,10 +28,10 @@ class User(AbstractUser):
         blank=True,
         validators=[FileExtensionValidator(["jpg", "jpeg", "png"])],
     )
-    otp = models.PositiveSmallIntegerField(verbose_name=_("otp code"), blank=True, null=True)
+    otp = models.PositiveSmallIntegerField(_("otp code"), blank=True, null=True)
     otp_create_time = models.DateTimeField(auto_now=True)
 
-    address = models.TextField(null=True, blank=True)
+    address = models.TextField(_("address"), null=True, blank=True)
 
     USERNAME_FIELD = "mobile"
 

@@ -1,3 +1,4 @@
+from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
@@ -5,7 +6,6 @@ from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 
-from apps.users.admin import admin_users
 from apps.users.views import TestView
 from config.django import base
 from config.django.base import DEBUG
@@ -21,12 +21,11 @@ schema_view = get_schema_view(
     ],
 )
 
-urlpatterns = [
+urlpatterns = i18n_patterns(
     path("admin/", admin.site.urls),
-    path("users/admin/", admin_users.urls),
     path("test/", TestView.as_view()),
     path("api/<str:version>/", include("apps.api.urls", namespace="api")),
-]
+)
 
 if DEBUG:
     urlpatterns += [

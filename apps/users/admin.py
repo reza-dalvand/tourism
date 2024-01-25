@@ -31,5 +31,4 @@ class UserAdmin(admin.ModelAdmin):
 
 
 # Create separate admin for users
-admin_users = admin.AdminSite("users_admin")
-admin_users.register(User, UserAdmin)
+admin.site.register(User, UserAdmin)

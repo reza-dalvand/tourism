@@ -129,7 +129,7 @@ REST_FRAMEWORK = {
 
 # language and time configurations
 ################################################################
-LANGUAGE_CODE = "en"
+LANGUAGE_CODE = "fa"
 
 TIME_ZONE = "Asia/Tehran"
 
@@ -137,7 +137,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = False
+USE_TZ = True
 
 LANGUAGES = (
     ("en", _("English")),

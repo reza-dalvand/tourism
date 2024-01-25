@@ -4,7 +4,7 @@ from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from apps.core.middlewares.CurrentUser import get_current_authenticated_user
+from apps.core.middlewares.current_user import get_current_authenticated_user
 
 
 class CurrentUserField(models.ForeignKey):

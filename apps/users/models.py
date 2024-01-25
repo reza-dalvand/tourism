@@ -16,7 +16,9 @@ class User(AbstractUser):
         unique=True,
         null=True,
         blank=True,
-        validators=[RegexValidator(regex=MOBILE_PATTERN, message="Enter a valid mobile number", code="Invalid Number")],
+        validators=[
+            RegexValidator(regex=MOBILE_PATTERN, message=_("Enter a valid mobile number"), code="Invalid Number")
+        ],
     )
     email = models.EmailField(_("email address"), unique=True)
     email_is_verified = models.BooleanField(_("is verified"), default=False)

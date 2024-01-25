@@ -3,7 +3,7 @@ import logging
 from kavenegar import *
 
 from apps.utils.generate_otp import generate_otp_code
-from config.django.env import env
+from config.django.env_file import env
 
 logger = logging.getLogger("main")
 

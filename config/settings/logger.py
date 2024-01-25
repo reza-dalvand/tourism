@@ -1,6 +1,6 @@
 import os
 
-from config.django.env import BASE_DIR
+from config.django.env_file import BASE_DIR
 
 # config format of handlers
 ########################################################################

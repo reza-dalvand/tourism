@@ -3,7 +3,7 @@ from pathlib import Path
 
 from django.utils.translation import gettext_lazy as _
 
-from config.django.env import BASE_DIR, env
+from config.django.env_file import BASE_DIR, env
 from config.settings.logger import LOGGING
 
 DEBUG = env("DEBUG", cast=bool, default=False)

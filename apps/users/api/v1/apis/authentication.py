@@ -21,7 +21,7 @@ class LoginOrRegisterApi(APIView):
     """
 
     permission_classes = (AllowAny,)
-    throttle_scope = "auth"
+    # throttle_scope = "auth"
 
     def post(self, request, *args, **kwargs):
         serializer = LoginOrRegisterSerializer(data=request.data)

@@ -18,7 +18,3 @@ class LoginOrRegisterSerializer(serializers.Serializer):
 
 class VerifyOtpSerializer(serializers.Serializer):
     code = serializers.IntegerField()
-
-
-class CheckEmailSerializer(serializers.Serializer):
-    email = serializers.EmailField()

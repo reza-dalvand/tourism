@@ -15,7 +15,7 @@ from .db_config import CONFIG_DATABASES  # noqa
 DATABASES = CONFIG_DATABASES
 DATABASE_ROUTERS = ["config.db_routers.auth_router.AuthRouter"]
 
-# installed apps
+# installed apps (need in development)
 ################################################################
 INSTALLED_APPS += [
     "rosetta",

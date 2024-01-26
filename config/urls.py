@@ -21,11 +21,10 @@ schema_view = get_schema_view(
     ],
 )
 
-urlpatterns = i18n_patterns(
-    path("admin/", admin.site.urls),
+urlpatterns = [
     path("test/", TestView.as_view()),
     path("api/<str:version>/", include("apps.api.urls", namespace="api")),
-)
+] + i18n_patterns(path("admin/", admin.site.urls))
 
 if DEBUG:
     urlpatterns += [

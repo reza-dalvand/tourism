@@ -1,3 +1,5 @@
+import uuid as uuid
+
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import FileExtensionValidator, RegexValidator
 from django.db import models
@@ -20,7 +22,7 @@ class User(AbstractUser):
             RegexValidator(regex=MOBILE_PATTERN, message=_("Enter a valid mobile number"), code="Invalid Number")
         ],
     )
-    email = models.EmailField(_("email address"), unique=True)
+    email = models.EmailField(_("email address"), blank=True, null=True)
     email_is_verified = models.BooleanField(_("is verified"), default=False)
     is_active = models.BooleanField(_("is active"), default=False)
     avatar = models.FileField(
@@ -32,6 +34,7 @@ class User(AbstractUser):
     )
     otp = models.PositiveSmallIntegerField(_("otp code"), blank=True, null=True)
     otp_create_time = models.DateTimeField(auto_now=True)
+    uuid = models.UUIDField(_("uuid"), default=uuid.uuid4, editable=False)
 
     address = models.TextField(_("address"), null=True, blank=True)
 

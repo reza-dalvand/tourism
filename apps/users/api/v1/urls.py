@@ -6,6 +6,6 @@ from .apis.authentication import LoginOrRegisterApi
 
 urlpatterns = [
     path("auth/", LoginOrRegisterApi.as_view(), name="login_or_register"),
-    path("auth/verify/", VerifyOtpApi.as_view(), name="verify-auth"),
+    path("auth/verify/", VerifyOtpApi.as_view(), name="verify_auth"),
     path("refresh/", TokenRefreshView.as_view(), name="token_refresh"),
 ]

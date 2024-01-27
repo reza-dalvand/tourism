@@ -41,4 +41,4 @@ class VerifyOtpApi(APIView):
                 "access_token": str(refresh.access_token),
             }
             return Response(data=tokens, status=status.HTTP_200_OK)
-        return Response(data=_("Code is expired"), status=status.HTTP_400_BAD_REQUEST)
+        return Response(data=_("Code is invalid"), status=status.HTTP_400_BAD_REQUEST)

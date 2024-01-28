@@ -1,12 +1,10 @@
 import pytest
-from django.test import TestCase
 
+from apps.tests.users.test_setup import TestSetup
 from apps.users.models import User
 
-TestCase.databases = {"users_db"}
 
-
-class UsersManagersTests(TestCase):
+class TestsUsersManagers(TestSetup):
     def test_create_user(self):
         user = User.objects.create_user(mobile="09121234567")
         assert user.mobile == "09121234567"

@@ -30,7 +30,7 @@ class LoginOrRegisterApi(APIView):
         user, created = User.objects.using("users_db").get_or_create(mobile=mobile)
         if created or check_expire_otp(user):
             request.session["mobile"] = mobile
-            send_otp_code(user)
+            # send_otp_code(user)
         else:
             return Response(data="The otp code is not expired", status=status.HTTP_409_CONFLICT)
         return Response(data={"status": "Ok"}, status=status.HTTP_201_CREATED)

@@ -11,41 +11,59 @@ from apps.utils.generate_otp import check_expire_otp, generate_otp_code
 class TestAuthentication(TestSetup):
     @pytest.fixture
     def setup_data(self):
-        self.client.post(self.auth_url, data={"mobile": "09121234567"})
+        self.api_client.post(self.auth_url, data={"mobile": "09131234567"})
         yield "setup_data"
+        print("tear down...")
 
     def test_auth(self):
-        response = self.client.post(self.auth_url, data={"mobile": "09121234567"})
+        response = self.api_client.post(self.auth_url, data={"mobile": "09131234567"})
         assert response.status_code in [status.HTTP_200_OK, status.HTTP_201_CREATED]
 
-    def test_check_expire_otp(self, setup_data):
-        response = self.client.post(self.auth_url, data={"mobile": "09121234567"})
-        assert response.status_code == status.HTTP_409_CONFLICT
-
     def test_auth_with_bad_request(self, setup_data):
-        response = self.client.post(self.auth_url, data={"mobile": ""})
+        response = self.api_client.post(self.auth_url, data={"mobile": ""})
         assert response.status_code == status.HTTP_400_BAD_REQUEST
+
+    def test_check_expire_otp(self, setup_data):
+        response = self.api_client.post(self.auth_url, data={"mobile": "09131234567"})
+        assert response.status_code == status.HTTP_409_CONFLICT
 
 
 class TestVerifyAuthentication(TestSetup):
     @pytest.fixture
     def setup_data(self):
-        self.client.post(self.auth_url, data={"mobile": "09121234567"})
-        self.user = User.objects.get(mobile="09121234567")
-        self.client.session["mobile"] = "09121234567"
+        self.api_client.post(self.auth_url, data={"mobile": "09141234567"})
+        self.user = User.objects.get(mobile="09141234567")
         yield "setup_data"
+        print("tear down...")
 
     def test_auth_verify(self, setup_data):
         self.user.otp = generate_otp_code()
         self.user.save()
-        response = self.client.post(self.verify_auth_url, data={"code": self.user.otp})
+        response = self.api_client.post(self.verify_auth_url, data={"code": self.user.otp})
         assert response.status_code == status.HTTP_200_OK
 
     def test_invalid_auth_verify(self, setup_data):
-        response = self.client.post(self.verify_auth_url, data={"code": "invalid code"})
+        response = self.api_client.post(self.verify_auth_url, data={"code": "invalid code"})
         assert response.status_code == status.HTTP_400_BAD_REQUEST
 
     def test_otp_code_is_expired(self, setup_data):
         self.user.otp_create_time = datetime.now() - timedelta(seconds=125)
         self.user.save()
         assert check_expire_otp(self.user) is False
+
+
+class TestProfile(TestSetup):
+    @pytest.fixture
+    def setup_data(self):
+        mobile = "09151234567"
+        self.api_client.post(self.auth_url, data={"mobile": mobile})
+        self.user = User.objects.get(mobile=mobile)
+        yield "setup_data"
+        print("tear down...")
+
+    def test_send_email(self, setup_data):
+        self.user.email = "test@example.com"
+        self.user.save()
+        self.api_client.force_authenticate(self.user)
+        response = self.api_client.post(self.send_email_url, data={"email": self.user.email})
+        assert response.status_code == status.HTTP_200_OK

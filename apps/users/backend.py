@@ -15,10 +15,10 @@ class MobileBackend(ModelBackend):
         -user: User object
     """
 
-    def authenticate(self, request, username=None, password=None, **kwargs):
+    def authenticate(self, request, mobile=None, password=None, **kwargs):
         UserModel = get_user_model()
         try:
-            user = UserModel.objects.using("users_db").get(mobile=username)
+            user = UserModel.objects.get(mobile=mobile)
         except User.DoesNotExist:
             return None
 
@@ -29,6 +29,6 @@ class MobileBackend(ModelBackend):
     def get_user(self, user_id):
         UserModel = get_user_model()
         try:
-            return UserModel.objects.using("users_db").get(pk=user_id)
+            return UserModel.objects.get(pk=user_id)
         except UserModel.DoesNotExist:
             return None

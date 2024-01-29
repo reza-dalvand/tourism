@@ -21,9 +21,10 @@ class SendEmailVerify(APIView):
     permission_classes = (IsAuthenticated,)
 
     def post(self, request, *args, **kwargs):
+        print(request.user, "=" * 90)
         user = request.user
-        prefix_url = f"Click on activate link http://127.0.0.1:8000/api/{request.version}"
-        message = f"{prefix_url}/profiles/verify/{user.email}/{user.uuid}"
+        prefix = f"Click on activate link http://127.0.0.1:8000/api/{request.version}"
+        message = f"{prefix}/profiles/verify/{user.email}/{user.uuid}"
         # todo: send email with celery
         send_email("Activate Email", message, [user.email])
         user.uuid = uuid.uuid4()

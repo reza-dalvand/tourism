@@ -2,7 +2,8 @@ from datetime import timedelta
 
 # JWT Configuration
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(days=3),
+    # todo: change this to 3 days
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=100),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=10),
     # Set a new refresh token when access token is changed
     "ROTATE_REFRESH_TOKENS": True,

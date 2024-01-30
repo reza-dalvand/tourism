@@ -32,6 +32,7 @@ class User(AbstractUser):
         blank=True,
         validators=[FileExtensionValidator(["jpg", "jpeg", "png"])],
     )
+    age = models.PositiveSmallIntegerField(_("age"), blank=True, null=True)
     otp = models.PositiveSmallIntegerField(_("otp code"), blank=True, null=True)
     otp_create_time = models.DateTimeField(auto_now=True)
     uuid = models.UUIDField(_("uuid"), default=uuid.uuid4, editable=False)

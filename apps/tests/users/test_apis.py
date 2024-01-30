@@ -58,12 +58,17 @@ class TestProfile(TestSetup):
         mobile = "09151234567"
         self.api_client.post(self.auth_url, data={"mobile": mobile})
         self.user = User.objects.get(mobile=mobile)
-        yield "setup_data"
-        print("tear down...")
-
-    def test_send_email(self, setup_data):
         self.user.email = "test@example.com"
         self.user.save()
         self.api_client.force_authenticate(self.user)
-        response = self.api_client.post(self.send_email_url, data={"email": self.user.email})
+        yield "setup_data"
+        print("tear down...")
+
+    def test_send_verify_email(self, setup_data):
+        response = self.api_client.post(self.send_verify_email_url, data={"email": self.user.email})
+        assert response.status_code == status.HTTP_200_OK
+
+    def test_verify_email(self, setup_data):
+        url = f"{self.verify_email_url}/{self.user.email}/{self.user.uuid}"
+        response = self.api_client.get(url)
         assert response.status_code == status.HTTP_200_OK

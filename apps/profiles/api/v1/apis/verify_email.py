@@ -10,7 +10,7 @@ from apps.users.models import User
 from apps.utils.send_email import send_email
 
 
-class SendEmailVerify(APIView):
+class SendVerifyEmail(APIView):
     """
     Send email verification link
 
@@ -21,7 +21,6 @@ class SendEmailVerify(APIView):
     permission_classes = (IsAuthenticated,)
 
     def post(self, request, *args, **kwargs):
-        print(request.user, "=" * 90)
         user = request.user
         prefix = f"Click on activate link http://127.0.0.1:8000/api/{request.version}"
         message = f"{prefix}/profiles/verify/{user.email}/{user.uuid}"

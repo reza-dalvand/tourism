@@ -21,7 +21,8 @@ class LoginOrRegisterApi(APIView):
     """
 
     permission_classes = (AllowAny,)
-    throttle_scope = "auth"
+    # todo: active this
+    # throttle_scope = "auth"
 
     def post(self, request, *args, **kwargs):
         serializer = LoginOrRegisterSerializer(data=request.data)
@@ -31,7 +32,7 @@ class LoginOrRegisterApi(APIView):
         if created or check_expire_otp(user):
             request.session["mobile"] = mobile
             # todo: send with celery
-            send_otp_code(user)
+            # send_otp_code(user)
         else:
             return Response(data="The otp code is not expired", status=status.HTTP_409_CONFLICT)
         return Response(data={"status": "Ok"}, status=status.HTTP_201_CREATED)

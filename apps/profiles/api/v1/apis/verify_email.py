@@ -1,6 +1,7 @@
 import uuid
 
 from django.contrib.auth import get_user_model
+from django.utils.translation import gettext_lazy as _
 from rest_framework import status
 from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
@@ -25,12 +26,14 @@ class SendVerifyEmail(APIView):
     def post(self, request, *args, **kwargs):
         user = request.user
         prefix = f"Click on activate link http://127.0.0.1:8000/api/{request.version}"
-        message = f"{prefix}/profiles/verify/{user.email}/{user.uuid}"
-        # todo: send email with celery
-        send_email("Activate Email", message, [user.email])
-        user.uuid = uuid.uuid4()
-        user.save()
-        return Response(data="Email was send", status=status.HTTP_200_OK)
+        if user.email:  # check email already set
+            message = f"{prefix}/profiles/verify/{user.email}/{user.uuid}"
+            # todo: send email with celery
+            send_email("Activate Email", message, [user.email])
+            user.uuid = uuid.uuid4()
+            user.save()
+            return Response(data="Email was send", status=status.HTTP_200_OK)
+        return Response(data=_("Email not set for this user"), status=status.HTTP_404_NOT_FOUND)
 
 
 class VerifyEmail(APIView):

@@ -33,12 +33,12 @@ class TestVerifyAuthentication(TestSetup):
     def setup_data(self):
         self.api_client.post(self.auth_url, data={"mobile": "09141234567"})
         self.user = User.objects.get(mobile="09141234567")
+        self.user.otp = generate_otp_code()
+        self.user.save()
         yield "setup_data"
         print("tear down...")
 
     def test_auth_verify(self, setup_data):
-        self.user.otp = generate_otp_code()
-        self.user.save()
         response = self.api_client.post(self.verify_auth_url, data={"code": self.user.otp})
         assert response.status_code == status.HTTP_200_OK
 

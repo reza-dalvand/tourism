@@ -3,7 +3,7 @@ from rest_framework.test import APIClient, APIRequestFactory
 
 
 @pytest.mark.django_db(databases=["users_db"])
-class TestSetup:
+class Setup:
     def setup_method(self):
         self.api_client = APIClient()
         self.api_request = APIRequestFactory()

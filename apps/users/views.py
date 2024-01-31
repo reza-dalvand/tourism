@@ -11,7 +11,7 @@ class TestView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        users = User.objects.using("users_db").get(mobile="09121234567")
+        users = User.objects.using("custom_db").get(mobile="09121234567")
         return Response(users)
 
     def post(self, request, *args, **kwargs):

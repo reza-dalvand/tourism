@@ -3,7 +3,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 class CustomUserManager(BaseUserManager):
-    users_db = "users_db"
+    custom_db = "custom_db"
     """
     Custom user model manager where mobile is the unique identifiers
     for authentication instead of usernames.
@@ -14,7 +14,7 @@ class CustomUserManager(BaseUserManager):
             raise ValueError("The mobile field must be set")
         user = self.model(mobile=mobile, **extra_fields)
         user.set_unusable_password()
-        user.save(using=self.users_db)
+        user.save(using=self.custom_db)
         return user
 
     def create_superuser(self, email, password, mobile, **extra_fields):
@@ -31,5 +31,5 @@ class CustomUserManager(BaseUserManager):
             raise ValueError(_("Superuser must have is_superuser=True."))
         user = self.model(mobile=mobile, email=email, password=password, **extra_fields)
         user.set_password(password)
-        user.save(using=self.users_db)
+        user.save(using=self.custom_db)
         return user

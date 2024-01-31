@@ -2,11 +2,11 @@ run-server:
 	python manage.py runserver
 
 user:
-	python manage.py createsuperuser --database=users_db
+	python manage.py createsuperuser --database=custom_db
 
 migrate:
 	python manage.py makemigrations
-	python manage.py migrate --database=users_db
+	python manage.py migrate --database=custom_db
 
 
 translate:

@@ -31,7 +31,7 @@ class LoginOrRegisterApi(APIView):
         serializer = LoginOrRegisterSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         mobile = serializer.validated_data.get("mobile")
-        user, created = User.objects.using("users_db").get_or_create(mobile=mobile)
+        user, created = User.objects.get_or_create(mobile=mobile)
         if created or check_expire_otp(user):
             request.session["mobile"] = mobile
             # todo: send with celery

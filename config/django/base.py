@@ -34,6 +34,7 @@ DJANGO_APPS = [
 LOCAL_APPS = [
     "apps.users",
     "apps.profiles",
+    "apps.hotels",
 ]
 
 THIRD_PARTY_APPS = [

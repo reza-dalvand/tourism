@@ -25,3 +25,7 @@ class TestProfile(Setup):
         url = f"{self.verify_email_url}/{self.user.email}/{self.user.uuid}"
         response = self.api_client.get(url)
         assert response.status_code == status.HTTP_200_OK
+
+    def test_update_user_profile(self, setup_data):
+        response = self.api_client.put(f"{self.update_profile_url}/{self.user.id}/", data={"first_name": "example"})
+        assert response.status_code == status.HTTP_200_OK

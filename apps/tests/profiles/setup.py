@@ -12,3 +12,4 @@ class Setup:
         self.verify_auth_url = f"{self.prefix_url}/users/auth/verify/"
         self.send_verify_email_url = f"{self.prefix_url}/profiles/send/email/"
         self.verify_email_url = f"{self.prefix_url}/profiles/verify"
+        self.update_profile_url = f"{self.prefix_url}/profiles/update"

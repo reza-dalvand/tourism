@@ -4,7 +4,7 @@
 *.pyc
 __pycache__
 db.sqlite3
-users.db.sqlite3
+custom.db.sqlite3
 media
 
 # Backup files #

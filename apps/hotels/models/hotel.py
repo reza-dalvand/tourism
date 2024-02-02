@@ -6,8 +6,7 @@ from apps.common.regex_patterns import LANDING_PHONE_PATTERN
 
 
 class Hotel(models.Model):
-    hotel_id = models.AutoField(primary_key=True)
-    name = models.CharField(_("name"), max_length=150)
+    name = models.CharField(_("name"), max_length=150, primary_key=True)
     phone = models.CharField(
         _("phone"),
         max_length=11,

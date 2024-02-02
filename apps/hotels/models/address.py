@@ -1,15 +1,15 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from apps.hotels.models import Hotel
+from .hotel import Hotel
 
 
 class HotelAddress(models.Model):
     CITIES = {
-        "Tehran": _("Tehran"),
-        "Kish": _("Kish"),
-        "Mashhad": _("Mashhad"),
-        "Yazd": _("Yazd"),
+        "tehran": _("Tehran"),
+        "kish": _("Kish"),
+        "mashhad": _("Mashhad"),
+        "yazd": _("Yazd"),
     }
     hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE, related_name="addresses")
     city = models.CharField(_("city"), max_length=255, choices=CITIES)

@@ -1,8 +1,11 @@
+from django.contrib.auth import get_user_model
 from django.core.validators import MaxValueValidator, RegexValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from apps.common.regex_patterns import LANDING_PHONE_PATTERN
+
+User = get_user_model()
 
 
 class Hotel(models.Model):
@@ -15,6 +18,7 @@ class Hotel(models.Model):
         ],
     )
     email = models.EmailField(_("email"), max_length=200)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_("owner"))
     number_of_rooms = models.IntegerField(_("number of rooms"))
     short_des = models.CharField(_("short description"), max_length=250)
     description = models.TextField(_("description"))

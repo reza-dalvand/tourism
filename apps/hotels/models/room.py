@@ -9,8 +9,8 @@ User = get_user_model()
 
 class Room(models.Model):
     room_id = models.AutoField(primary_key=True)
-    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE, related_name="rooms")
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE, related_name="rooms", verbose_name=_("hotel"))
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_("owner"))
     entry_date = models.DateField(_("entry date"), blank=True, null=True)
     exit_date = models.DateField(_("exit date"), blank=True, null=True)
     number_of_bed = models.IntegerField(_("number of bed"), default=2)

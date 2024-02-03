@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from apps.hotels.managers import RoomQuerySet
 from apps.hotels.models import Hotel
 
 User = get_user_model()
@@ -16,6 +17,8 @@ class Room(models.Model):
     number_of_bed = models.IntegerField(_("number of bed"), default=2)
     has_wifi = models.BooleanField(_("has wifi"), default=True)
     has_bathroom = models.BooleanField(_("has bathroom "), default=True)
+
+    objects = RoomQuerySet.as_manager()
 
     class Meta:
         verbose_name = _("room")

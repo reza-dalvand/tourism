@@ -1,8 +1,8 @@
 from rest_framework.permissions import BasePermission
 
 
-class CheckOwner(BasePermission):
-    """allow to change or create instance by owners"""
+class CheckHotelOwner(BasePermission):
+    """checking a user want to change or create hotel instance whether is owner?"""
 
     def has_object_permission(self, request, view, obj):
         if request.method is "POST" and request.user.is_hotel_owner:

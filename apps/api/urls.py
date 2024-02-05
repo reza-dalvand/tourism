@@ -5,4 +5,5 @@ urlpatterns = [
     path("users/", include("apps.users.urls", namespace="users")),
     path("profiles/", include("apps.profiles.urls", namespace="profiles")),
     path("hotels/", include("apps.hotels.urls", namespace="hotels")),
+    path("tours/", include("apps.tours.urls", namespace="tours")),
 ]

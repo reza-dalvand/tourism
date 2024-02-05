@@ -35,6 +35,7 @@ LOCAL_APPS = [
     "apps.users",
     "apps.profiles",
     "apps.hotels",
+    "apps.tours",
 ]
 
 THIRD_PARTY_APPS = [

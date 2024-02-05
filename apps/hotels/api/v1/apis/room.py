@@ -8,5 +8,5 @@ from apps.hotels.serializers import RoomSerializer
 
 class RoomApi(ModelViewSet):
     permission_classes = (AllowAny, CheckHotelOwner)
-    queryset = Room.objects.all()
+    queryset = Room.objects.unreserved_rooms()
     serializer_class = RoomSerializer

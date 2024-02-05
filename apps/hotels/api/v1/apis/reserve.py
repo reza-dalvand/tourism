@@ -1,4 +1,7 @@
-from rest_framework.permissions import AllowAny
+from django.utils.translation import gettext_lazy as _
+from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
 from apps.core.permissions.check_reserve_owner import CheckReserveOwner
@@ -7,6 +10,21 @@ from apps.hotels.serializers import HotelReservationSerializer
 
 
 class HotelReservation(ModelViewSet):
-    permission_classes = (AllowAny, CheckReserveOwner)
+    permission_classes = (IsAuthenticated, CheckReserveOwner)
     serializer_class = HotelReservationSerializer
     queryset = Reservation.objects.all()
+
+    def create(self, request, *args, **kwargs):
+        serializer = HotelReservationSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        room = serializer.validated_data.get("room")
+        user = serializer.validated_data.get("user")
+        hotel = serializer.validated_data.get("hotel")
+
+        is_reserved = Reservation.objects.filter(
+            hotel=hotel, room=room, user=user, entry_date__isnull=False, exit_date__isnull=False
+        ).exists()
+
+        if not is_reserved:
+            return super().create(request, *args, **kwargs)
+        return Response(data=_("This room already reserved"), status=status.HTTP_403_FORBIDDEN)

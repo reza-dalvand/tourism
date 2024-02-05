@@ -2,7 +2,7 @@ from rest_framework.permissions import BasePermission
 
 
 class CheckHotelOwner(BasePermission):
-    """checking a user want to change or create hotel instance whether is owner?"""
+    """checking a user want to change or create hotel or room instance whether is owner?"""
 
     def has_permission(self, request, view):
         if request.method != "POST":

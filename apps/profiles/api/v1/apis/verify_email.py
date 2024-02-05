@@ -30,7 +30,6 @@ class SendVerifyEmail(APIView):
             message = f"{prefix}/profiles/verify/{user.email}/{user.uuid}"
             # todo: send email with celery
             send_email("Activate Email", message, [user.email])
-            user.uuid = uuid.uuid4()
             user.save()
             return Response(data="Email was send", status=status.HTTP_200_OK)
         return Response(data=_("Email not set for this user"), status=status.HTTP_404_NOT_FOUND)
@@ -43,5 +42,6 @@ class VerifyEmail(APIView):
         user_uuid = kwargs.get("user_uuid")
         user = get_object_or_404(User, uuid=user_uuid)
         user.email_is_verified = True
+        user.uuid = uuid.uuid4()
         user.save()
         return Response(data="Email was verified", status=status.HTTP_200_OK)

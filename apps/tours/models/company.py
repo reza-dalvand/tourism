@@ -7,14 +7,14 @@ from apps.common.models import BaseModel
 User = get_user_model()
 
 
-class TourismCompony(BaseModel):
-    compony_name = models.CharField(_("name"), max_length=150, primary_key=True)
+class TourismCompany(BaseModel):
+    company_name = models.CharField(_("name"), max_length=150, primary_key=True)
     short_des = models.CharField(_("short description"), max_length=250)
     description = models.TextField(_("description"))
 
     class Meta:
-        verbose_name = _("compony")
+        verbose_name = _("company")
         verbose_name_plural = _("companies")
 
     def __str__(self):
-        return self.name
+        return self.company_name

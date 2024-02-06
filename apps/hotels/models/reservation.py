@@ -1,17 +1,16 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.db.models import F, Q, UniqueConstraint
 from django.utils.translation import gettext_lazy as _
-
-from apps.users.models import User
 
 from .hotel import Hotel
 from .room import Room
 
 
 class Reservation(models.Model):
-    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE, related_name="hotels")
-    room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name="rooms")
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="users")
+    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE, related_name="reservations")
+    room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name="reservations")
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name="reservations")
     entry_date = models.DateTimeField(null=True, blank=True)
     exit_date = models.DateTimeField(null=True, blank=True)
 

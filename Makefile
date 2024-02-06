@@ -4,6 +4,9 @@ run-server:
 user:
 	python manage.py createsuperuser --database=custom_db
 
+check:
+	python manage.py check
+
 migrate:
 	python manage.py makemigrations
 	python manage.py migrate --database=custom_db

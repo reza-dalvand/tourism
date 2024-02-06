@@ -1,11 +1,8 @@
-from django.contrib.auth import get_user_model
 from django.core.validators import MaxValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from apps.common.models import BaseModel
-
-User = get_user_model()
 
 
 class Hotel(BaseModel):

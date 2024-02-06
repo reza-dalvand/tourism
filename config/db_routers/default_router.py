@@ -1,5 +1,5 @@
 class DefaultRouter:
-    route_app_labels = {"users", "auth", "contenttypes", "sessions", "admin", "messages", "hotels"}
+    route_app_labels = {"users", "auth", "contenttypes", "sessions", "admin", "messages", "hotels", "tours"}
     custom_db = "custom_db"
 
     def db_for_read(self, model, **hints):

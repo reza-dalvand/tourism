@@ -34,6 +34,7 @@ class User(AbstractUser):
     )
     age = models.PositiveSmallIntegerField(_("age"), blank=True, null=True)
     is_hotel_owner = models.BooleanField(_("hotel owner"), default=False)
+    is_tour_company_owner = models.BooleanField(_("tour company owner"), default=False)
     otp = models.PositiveSmallIntegerField(_("otp code"), blank=True, null=True)
     otp_create_time = models.DateTimeField(auto_now=True)
     uuid = models.UUIDField(_("uuid"), default=uuid.uuid4, editable=False)

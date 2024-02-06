@@ -1,10 +1,10 @@
 from django.urls import include, path
 from rest_framework import routers
 
-from .apis.hotel import HotelApi
+from .apis.company import TourismCompanyApi
 
 router = routers.DefaultRouter()
-router.register("", HotelApi, basename="hotels")
+router.register("company", TourismCompanyApi, basename="company")
 
 urlpatterns = [
     path("", include(router.urls)),

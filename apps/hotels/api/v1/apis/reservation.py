@@ -21,9 +21,11 @@ class HotelReservation(ModelViewSet):
         user = serializer.validated_data.get("user")
         hotel = serializer.validated_data.get("hotel")
 
-        is_reserved = Reservation.objects.filter(
-            hotel=hotel, room=room, user=user, entry_date__isnull=False, exit_date__isnull=False
-        ).exists()
+        is_reserved = (
+            Reservation.objects.select_related("hotel", "user", "room")
+            .filter(hotel=hotel, room=room, user=user, entry_date__isnull=False, exit_date__isnull=False)
+            .exists()
+        )
 
         if not is_reserved:
             return super().create(request, *args, **kwargs)

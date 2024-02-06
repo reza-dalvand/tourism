@@ -6,7 +6,7 @@ from .apis.reservation import HotelReservation
 from .apis.room import RoomApi
 
 router = routers.DefaultRouter()
-router.register("reserves", HotelReservation, basename="reserves")
+router.register("reservation", HotelReservation, basename="reservations")
 router.register("rooms", RoomApi, basename="rooms")
 router.register("", HotelApi, basename="hotels")
 

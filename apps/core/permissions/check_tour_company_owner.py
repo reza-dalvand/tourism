@@ -1,13 +1,13 @@
 from rest_framework.permissions import BasePermission
 
 
-class CheckHotelOwner(BasePermission):
+class CheckTourCompanyOwner(BasePermission):
     """checking a user want to change or create instance whether is owner?"""
 
     def has_permission(self, request, view):
         if request.method != "POST":
             return True
-        elif request.method == "POST" and request.user.is_hotel_owner:
+        elif request.method == "POST" and request.user.is_tour_company_owner:
             return True
         return False
 

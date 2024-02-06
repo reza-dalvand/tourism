@@ -7,6 +7,12 @@ from apps.hotels.serializers import HotelSerializer
 
 
 class HotelApi(ModelViewSet):
+    """
+    create change or ... after checking user is allowed
+    to access this operation (with CheckHotelOwner)
+
+    """
+
     permission_classes = (IsAuthenticated, CheckHotelOwner)
     queryset = Hotel.objects.all()
     serializer_class = HotelSerializer

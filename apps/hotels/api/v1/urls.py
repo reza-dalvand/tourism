@@ -2,7 +2,7 @@ from django.urls import include, path
 from rest_framework import routers
 
 from .apis.hotel import HotelApi
-from .apis.reserve import HotelReservation
+from .apis.reservation import HotelReservation
 from .apis.room import RoomApi
 
 router = routers.DefaultRouter()

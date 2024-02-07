@@ -34,7 +34,7 @@ class BaseModel(models.Model):
         abstract = True
 
 
-class BaseAddress(models.Model):
+class BaseAddressModel(models.Model):
     CITIES = {
         "tehran": _("Tehran"),
         "kish": _("Kish"),

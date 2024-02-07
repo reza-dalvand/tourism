@@ -1,12 +1,12 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from apps.common.models import BaseAddress
+from apps.common.models import BaseAddressModel
 
 from .hotel import Hotel
 
 
-class HotelAddress(BaseAddress):
+class HotelAddress(BaseAddressModel):
     hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE, related_name="addresses")
 
     class Meta:

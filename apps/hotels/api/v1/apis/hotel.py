@@ -8,8 +8,8 @@ from apps.hotels.serializers import HotelSerializer
 
 class HotelApi(ModelViewSet):
     """
-    create change or ... after checking user is allowed
-    to access this operation (with CheckHotelOwner)
+    CRUD operation after verifying the user is authorized
+    To access it with CheckTourCompanyOwner permission
 
     """
 

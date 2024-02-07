@@ -10,6 +10,12 @@ from apps.hotels.serializers import HotelReservationSerializer
 
 
 class HotelReservation(ModelViewSet):
+    """
+    CRUD operation after verifying the user is authorized
+    To access it with CheckReserveOwner permission
+
+    """
+
     permission_classes = (IsAuthenticated, CheckReserveOwner)
     serializer_class = HotelReservationSerializer
     queryset = Reservation.objects.all()

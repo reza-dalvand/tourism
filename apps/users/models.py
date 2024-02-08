@@ -13,6 +13,7 @@ from .managers import CustomUserManager
 
 def validate_avatar_size(file):
     limit = 1 * 1024 * 1024
+    print(file.size)
     if file.size > limit:
         raise ValidationError(_("File size cannot exceed 1MB"))
 

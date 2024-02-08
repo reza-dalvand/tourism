@@ -28,9 +28,8 @@ class Tour(models.Model):
             models.CheckConstraint(
                 check=Q(start_date__lt=F("end_date")),
                 name="check_tour_date",
-                violation_error_message=_("thr end date connot be set less than or equal to the start date"),
+                violation_error_message=_("thr end date cannot be set less than or equal to the start date"),
             ),
-            # models.CheckConstraint(check=Q(capacity__lte=F("capacity")), name="check_capacity"),
         ]
 
     def __str__(self):

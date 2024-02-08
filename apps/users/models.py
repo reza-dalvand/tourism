@@ -7,6 +7,7 @@ from django.utils.translation import gettext_lazy as _
 
 from apps.common.regex_patterns import MOBILE_PATTERN
 
+from ..utils.fields.file_field import FileFiledRestricted
 from .managers import CustomUserManager
 
 
@@ -25,7 +26,7 @@ class User(AbstractUser):
     email = models.EmailField(_("email address"), blank=True, null=True)
     email_is_verified = models.BooleanField(_("is verified"), default=False)
     is_active = models.BooleanField(_("is active"), default=False)
-    avatar = models.FileField(
+    avatar = FileFiledRestricted(
         _("avatar"),
         upload_to="avatars/%y/%m/%d",
         null=True,

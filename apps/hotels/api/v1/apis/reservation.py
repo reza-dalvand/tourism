@@ -21,7 +21,7 @@ class HotelReservation(ModelViewSet):
     queryset = Reservation.objects.all()
 
     def create(self, request, *args, **kwargs):
-        serializer = HotelReservationSerializer(data=request.data)
+        serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         room = serializer.validated_data.get("room")
         user = serializer.validated_data.get("user")

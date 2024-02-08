@@ -21,8 +21,8 @@ class TourReservationApi(ModelViewSet):
     serializer_class = TourReservationSerializer
     queryset = TourReservation.objects.all()
 
-    def post(self, request, *args, **kwargs):
+    def create(self, request, *args, **kwargs):
         try:
-            self.create(request, *args, **kwargs)
+            super().create(request, *args, **kwargs)
         except ValidationError:
-            return Response(data=_("Tour Capacity is fulled"), status=status.HTTP_403_FORBIDDEN)
+            return Response(data=_("Tour Capacity is fulled"), status=status.HTTP_400_BAD_REQUEST)

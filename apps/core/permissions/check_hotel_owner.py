@@ -1,5 +1,7 @@
 from rest_framework.permissions import BasePermission
 
+# todo: resolve duplicate permissions
+
 
 class CheckHotelOwner(BasePermission):
     """checking a user want to change or create instance whether is owner?"""

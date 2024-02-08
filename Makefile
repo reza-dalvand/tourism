@@ -17,5 +17,5 @@ translate:
 	django-admin makemessages -l fa --ignore=venv
 
 
-run-tests:
-	python manage.py test --pattern="test_*.py" apps/tests --verbosity=1
+tests:
+	pytest -s apps/tests --verbosity=1

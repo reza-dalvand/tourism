@@ -4,11 +4,17 @@ from django.contrib.auth.models import AbstractUser
 from django.core.validators import FileExtensionValidator, RegexValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from rest_framework.exceptions import ValidationError
 
 from apps.common.regex_patterns import MOBILE_PATTERN
 
-from ..utils.fields.file_field import FileFiledRestricted
 from .managers import CustomUserManager
+
+
+def validate_avatar_size(file):
+    limit = 1 * 1024 * 1024
+    if file.size > limit:
+        raise ValidationError(_("File size cannot exceed 1MB"))
 
 
 class User(AbstractUser):
@@ -26,12 +32,15 @@ class User(AbstractUser):
     email = models.EmailField(_("email address"), blank=True, null=True)
     email_is_verified = models.BooleanField(_("is verified"), default=False)
     is_active = models.BooleanField(_("is active"), default=False)
-    avatar = FileFiledRestricted(
+    avatar = models.FileField(
         _("avatar"),
         upload_to="avatars/%y/%m/%d",
         null=True,
         blank=True,
-        validators=[FileExtensionValidator(["jpg", "jpeg", "png"])],
+        validators=[
+            validate_avatar_size,
+            FileExtensionValidator(["jpg", "jpeg", "png"]),
+        ],
     )
     age = models.PositiveSmallIntegerField(_("age"), blank=True, null=True)
     is_hotel_owner = models.BooleanField(_("hotel owner"), default=False)
@@ -54,3 +63,6 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.mobile
+
+    def clean(self):
+        super().clean()

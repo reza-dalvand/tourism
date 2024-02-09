@@ -6,7 +6,7 @@ from .apis.reservation import TourReservationApi
 from .apis.tour import TourApi
 
 router = routers.DefaultRouter()
-router.register("companies", TourismCompanyApi, basename="company")
+router.register("companies", TourismCompanyApi, basename="companies")
 router.register("reservation", TourReservationApi, basename="reservation")
 router.register("", TourApi, basename="all-tours")
 

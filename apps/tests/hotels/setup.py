@@ -12,3 +12,4 @@ class SetUp:
         self.verify_auth_url = f"{self.prefix_url}/users/auth/verify/"
         self.prefix_url = "http://127.0.0.1:8000/api/v1"
         self.hotel_url = f"{self.prefix_url}/hotels/"
+        self.room_url = f"{self.prefix_url}/hotels/rooms/"

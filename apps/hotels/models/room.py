@@ -15,7 +15,7 @@ class Room(models.Model):
     number_of_bed = models.IntegerField(_("number of bed"), default=2)
     has_wifi = models.BooleanField(_("has wifi"), default=True)
     has_bathroom = models.BooleanField(_("has bathroom "), default=True)
-    price = models.DecimalField(_("price"), max_digits=8, decimal_places=2)
+    price = models.DecimalField(_("price"), max_digits=10, decimal_places=2)
 
     objects = RoomQuerySet.as_manager()
 

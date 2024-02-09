@@ -17,7 +17,7 @@ class TestHotel(SetUp):
         yield "setup_data"
         print("tear down...")
 
-    def test_hotel(self, setup_data):
+    def test_create_hotel(self, setup_data):
         data = {
             "hotel_name": "example",
             "phone": "02112345678",
@@ -34,7 +34,7 @@ class TestHotel(SetUp):
         response = self.api_client.post(self.hotel_url, data={})
         assert response.status_code == status.HTTP_400_BAD_REQUEST
 
-    def test_user_not_owner_for_create_hotel(self, setup_data):
+    def test_user_not_allowed_for_create_hotel(self, setup_data):
         self.user.is_hotel_owner = False
         self.user.save()
         response = self.api_client.post(self.hotel_url, data={})

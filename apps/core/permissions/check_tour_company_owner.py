@@ -7,12 +7,12 @@ class CheckTourCompanyOwner(BasePermission):
     def has_permission(self, request, view):
         if request.method != "POST":
             return True
-        elif request.method == "POST" and request.user.is_tour_company_owner:
+        elif request.method == "POST" and request.user.is_tourism_company_owner:
             return True
         return False
 
     def has_object_permission(self, request, view, obj):
-        if request.method in ["PUT", "PATCH", "DELETE"] and request.user == obj.owner:
+        if request.method in ["PUT", "PATCH", "DELETE"] and request.user == obj.user:
             return True
         elif request.method == "GET":
             return True

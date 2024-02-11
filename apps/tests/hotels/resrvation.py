@@ -32,7 +32,7 @@ class TestHotelReservation(SetUp):
         response = self.api_client.post(self.reserve_url, data=self.data)
         assert response.status_code == status.HTTP_201_CREATED
 
-    def test_reserve_with_invalid_data(self, setup_data):
+    def test_create_reserve_with_invalid_data(self, setup_data):
         response = self.api_client.post(self.reserve_url, data={})
         assert response.status_code == status.HTTP_400_BAD_REQUEST
 

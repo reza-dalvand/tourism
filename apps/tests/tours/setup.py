@@ -9,4 +9,5 @@ class SetUp:
         self.api_request = APIRequestFactory()
         self.prefix_url = "http://127.0.0.1:8000/api/v1"
         self.auth_url = f"{self.prefix_url}/users/auth/"
+        self.tour_url = f"{self.prefix_url}/tours/"
         self.company_url = f"{self.prefix_url}/tours/companies/"

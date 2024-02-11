@@ -11,7 +11,7 @@ class TestCompany(SetUp):
     @pytest.fixture
     def setup_data(self):
         print("setup...")
-        self.user = baker.make(User, is_tour_company_owner=True)
+        self.user = baker.make(User, is_tourism_company_owner=True)
         self.company = baker.make(TourismCompany, company_name="test")
         self.api_client.force_authenticate(self.user)
         yield "setup_data"
@@ -29,12 +29,12 @@ class TestCompany(SetUp):
         response = self.api_client.post(self.company_url, data=data)
         assert response.status_code == status.HTTP_201_CREATED
 
-    def test_company_with_invalid_data(self, setup_data):
+    def test_create_company_with_invalid_data(self, setup_data):
         response = self.api_client.post(self.company_url, data={})
         assert response.status_code == status.HTTP_400_BAD_REQUEST
 
     def test_user_not_allowed_for_create_company(self, setup_data):
-        self.user.is_tour_company_owner = False
+        self.user.is_tourism_company_owner = False
         self.user.save()
         response = self.api_client.post(self.company_url, data={})
         assert response.status_code == status.HTTP_403_FORBIDDEN

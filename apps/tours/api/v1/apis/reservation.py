@@ -23,6 +23,6 @@ class TourReservationApi(ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         try:
-            super().create(request, *args, **kwargs)
+            return super().create(request, *args, **kwargs)
         except ValidationError:
             return Response(data=_("Tour Capacity is fulled"), status=status.HTTP_400_BAD_REQUEST)

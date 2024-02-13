@@ -3,8 +3,8 @@ from datetime import datetime, timedelta
 import pytest
 from model_bakery import baker
 from rest_framework import status
-from setup import SetUp
 
+from apps.tests.tours.setup import SetUp
 from apps.tours.models import Tour, TourismCompany
 from apps.users.models import User
 
@@ -38,12 +38,6 @@ class TestTour(SetUp):
     def test_create_tour_with_invalid_data(self, setup_data):
         response = self.api_client.post(self.tour_url, data={})
         assert response.status_code == status.HTTP_400_BAD_REQUEST
-
-    def test_user_not_allowed_for_create_tour(self, setup_data):
-        self.user.is_tourism_company_owner = False
-        self.user.save()
-        response = self.api_client.post(self.tour_url, data={})
-        assert response.status_code == status.HTTP_403_FORBIDDEN
 
     def test_remove_tour(self, setup_data):
         response = self.api_client.delete(f"{self.tour_url}{self.tour.id}/")

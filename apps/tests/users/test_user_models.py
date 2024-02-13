@@ -1,6 +1,6 @@
 import pytest
-from setup import Setup
 
+from apps.tests.users.setup import Setup
 from apps.users.models import User
 
 

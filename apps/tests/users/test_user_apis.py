@@ -2,8 +2,8 @@ from datetime import datetime, timedelta
 
 import pytest
 from rest_framework import status
-from setup import Setup
 
+from apps.tests.users.setup import Setup
 from apps.users.models import User
 from apps.utils.generate_otp import check_expire_otp, generate_otp_code
 

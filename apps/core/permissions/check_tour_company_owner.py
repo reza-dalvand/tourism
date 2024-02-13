@@ -12,7 +12,8 @@ class CheckTourCompanyOwner(BasePermission):
         return False
 
     def has_object_permission(self, request, view, obj):
-        if request.method in ["PUT", "PATCH", "DELETE"] and request.user == obj.user:
+        # todo: resolve duplicate permission for apps
+        if request.method in ["PUT", "PATCH", "DELETE"] and request.user == obj.owner:
             return True
         elif request.method == "GET":
             return True

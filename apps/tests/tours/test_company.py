@@ -1,8 +1,8 @@
 import pytest
 from model_bakery import baker
 from rest_framework import status
-from setup import SetUp
 
+from apps.tests.tours.setup import SetUp
 from apps.tours.models import TourismCompany
 from apps.users.models import User
 

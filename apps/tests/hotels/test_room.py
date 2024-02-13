@@ -1,9 +1,9 @@
 import pytest
 from model_bakery import baker
 from rest_framework import status
-from setup import SetUp
 
 from apps.hotels.models import Hotel, Room
+from apps.tests.hotels.setup import SetUp
 from apps.users.models import User
 
 

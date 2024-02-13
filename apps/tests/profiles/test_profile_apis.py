@@ -1,7 +1,7 @@
 import pytest
 from rest_framework import status
-from setup import Setup
 
+from apps.tests.profiles.setup import Setup
 from apps.users.models import User
 
 

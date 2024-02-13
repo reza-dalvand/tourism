@@ -11,3 +11,4 @@ class SetUp:
         self.auth_url = f"{self.prefix_url}/users/auth/"
         self.tour_url = f"{self.prefix_url}/tours/"
         self.company_url = f"{self.prefix_url}/tours/companies/"
+        self.reserve_url = f"{self.prefix_url}/tours/reservation/"

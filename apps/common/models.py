@@ -20,14 +20,6 @@ class BaseModel(models.Model):
     )
     created_on = models.DateTimeField(auto_now_add=True)
     modified_on = models.DateTimeField(auto_now=True)
-    phone = models.CharField(
-        _("phone"),
-        max_length=11,
-        validators=[
-            RegexValidator(regex=LANDING_PHONE_PATTERN, message=_("Enter a valid mobile number"), code="Invalid Number")
-        ],
-    )
-    email = models.EmailField(_("email"), max_length=200)
 
     class Meta:
         ordering = ["-id"]
@@ -45,6 +37,20 @@ class BaseAddressModel(models.Model):
     lang = models.DecimalField(_("lang"), max_digits=17, decimal_places=10)
     lat = models.DecimalField(_("lang"), max_digits=17, decimal_places=10)
     address = models.TextField(_("address"))
+
+    class Meta:
+        abstract = True
+
+
+class PhoneAndEmailModel(models.Model):
+    phone = models.CharField(
+        _("phone"),
+        max_length=11,
+        validators=[
+            RegexValidator(regex=LANDING_PHONE_PATTERN, message=_("Enter a valid mobile number"), code="Invalid Number")
+        ],
+    )
+    email = models.EmailField(_("email"), max_length=200)
 
     class Meta:
         abstract = True

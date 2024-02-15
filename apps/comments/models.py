@@ -8,8 +8,8 @@ from apps.common.models import BaseModel
 
 # Create your models here.
 class Comment(BaseModel):
-    phone = None
-    email = None
+    """used Comment as a common model for hotels and tours app"""
+
     body = models.TextField(_("body"))
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()

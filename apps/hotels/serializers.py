@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+from apps.comments.serializers import CommentSerializer
 from apps.hotels.models import Hotel, HotelAddress, Reservation, Room
 
 
@@ -18,6 +19,7 @@ class RoomSerializer(serializers.ModelSerializer):
 class HotelSerializer(serializers.ModelSerializer):
     addresses = HotelAddressSerializer(read_only=True, many=True)
     rooms = RoomSerializer(read_only=True, many=True)
+    comments = CommentSerializer(read_only=True, many=True)
 
     class Meta:
         model = Hotel

@@ -1,5 +1,7 @@
 from django.contrib.contenttypes.models import ContentType
+from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
 from apps.comments.models import Comment
@@ -20,9 +22,12 @@ class HotelApi(ModelViewSet):
     serializer_class = HotelSerializer
 
     def retrieve(self, request, *args, **kwargs):
-        hotel_name = kwargs["pk"]
-        hotel = Hotel.objects.get(hotel_name=hotel_name)
-        # comments = Comment.objects.filter(content_type_id=7, object_id=1)
+        """added hotel's comments to response"""
+        hotel = self.get_object()
+        serializer = self.get_serializer(hotel)
         content_type = ContentType.objects.get_for_model(hotel)
-        comments = Comment.objects.filter(content_type=content_type, object_id=1)
-        print(comments)
+        comments = Comment.objects.filter(content_type=content_type).values()
+        # serializer.data is read only property
+        serializer_data = serializer.data
+        serializer_data["comments"] = list(comments)
+        return Response(serializer_data, status=status.HTTP_200_OK)

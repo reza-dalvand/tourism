@@ -1,4 +1,4 @@
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
 from apps.comments.models import Comment
@@ -13,6 +13,6 @@ class CommentApi(ModelViewSet):
         -body
     """
 
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
     serializer_class = CommentSerializer
     queryset = Comment.objects.all()

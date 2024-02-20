@@ -1,6 +1,7 @@
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
+from django.db.models import UniqueConstraint
 from django.utils.translation import gettext_lazy as _
 
 from apps.common.models import BaseModel
@@ -16,9 +17,14 @@ class Comment(BaseModel):
     content_object = GenericForeignKey("content_type", "object_id")
 
     def __str__(self):
-        return self.owner
+        return self.body
 
     class Meta:
+        verbose_name = _("comment")
+        verbose_name_plural = _("comments")
+        constraints = [
+            UniqueConstraint(fields=["owner", "content_type", "object_id"], name="constraint_comment_unique"),
+        ]
         indexes = [
             models.Index(fields=["content_type", "object_id"]),
         ]

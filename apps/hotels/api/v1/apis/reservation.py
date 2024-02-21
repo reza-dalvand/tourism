@@ -1,3 +1,4 @@
+from django.db import IntegrityError
 from django.utils.translation import gettext_lazy as _
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
@@ -24,15 +25,13 @@ class HotelReservation(ModelViewSet):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         room = serializer.validated_data.get("room")
-        user = serializer.validated_data.get("user")
         hotel = serializer.validated_data.get("hotel")
+        entry_date = serializer.validated_data.get("entry_date")
+        reserve = Reservation.objects.select_related("hotel", "room").filter(hotel=hotel, room=room).first()
+        try:
+            if not reserve or reserve.exit_date < entry_date:
+                return super().create(request, *args, **kwargs)
+            return Response(data=_("This room already reserved"), status=status.HTTP_400_BAD_REQUEST)
 
-        is_reserved = (
-            Reservation.objects.select_related("hotel", "user", "room")
-            .filter(hotel=hotel, room=room, user=user, entry_date__isnull=False, exit_date__isnull=False)
-            .exists()
-        )
-
-        if not is_reserved:
-            return super().create(request, *args, **kwargs)
-        return Response(data=_("This room already reserved"), status=status.HTTP_403_FORBIDDEN)
+        except IntegrityError as e:
+            return Response(data=_("You can't reserve this room again"), status=status.HTTP_400_BAD_REQUEST)

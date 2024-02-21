@@ -1,13 +1,11 @@
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
-from django.db.models import UniqueConstraint
 from django.utils.translation import gettext_lazy as _
 
 from apps.common.models import BaseModel
 
 
-# Create your models here.
 class Comment(BaseModel):
     """used Comment as a common model for hotels and tours app"""
 

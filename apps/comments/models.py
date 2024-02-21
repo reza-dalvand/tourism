@@ -22,9 +22,6 @@ class Comment(BaseModel):
     class Meta:
         verbose_name = _("comment")
         verbose_name_plural = _("comments")
-        constraints = [
-            UniqueConstraint(fields=["owner", "content_type", "object_id"], name="constraint_comment_unique"),
-        ]
         indexes = [
             models.Index(fields=["content_type", "object_id"]),
         ]

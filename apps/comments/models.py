@@ -7,7 +7,7 @@ from apps.common.models import BaseModel
 
 
 class Comment(BaseModel):
-    """used Comment as a common model for hotels and tours app"""
+    """Use Comment as a common model for hotels and tours app"""
 
     body = models.TextField(_("body"))
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
